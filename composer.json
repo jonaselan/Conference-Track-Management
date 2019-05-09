@@ -1,0 +1,16 @@
+{
+    "name": "jonaselan/problem-two",
+    "description": "Conference Track Management",
+    "require": {
+        "phpunit/phpunit": "^8.1"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^8.1"
+    },
+    "authors": [
+        {
+            "name": "jonaselan",
+            "email": "jonas.elan@gmail.com"
+        }
+    ]
+}
