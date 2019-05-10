@@ -12,5 +12,10 @@
             "name": "jonaselan",
             "email": "jonas.elan@gmail.com"
         }
-    ]
+    ],
+    "autoload": {
+        "psr-4": {
+            "Src\\": "src/"
+        }
+    }
 }
