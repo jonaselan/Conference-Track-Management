@@ -35,7 +35,7 @@ class Conference
     {
         while($this->hasTalksRemaining())
         {
-            $this->tracks[++$this->track_count][] =
+            $this->tracks[++$this->track_count] =
             $this->setDailyTrack(
                 $this->fillMorningTrack(),
                 $this->fillAfternoonTrack()
@@ -135,7 +135,7 @@ class Conference
 
     private function setDailyTrack($morningTrack, $afternoonTrack)
     {
-        $morning = array_merge($morningTrack, ['Lunch' => 0]);
+        $morning = array_merge($morningTrack, ['Lunch' => 60]);
         $afternoon = array_merge($afternoonTrack, ['Networking Event' => 0]);
 
         return array_merge($morning, $afternoon);

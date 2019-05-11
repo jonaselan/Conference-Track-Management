@@ -3,6 +3,7 @@
 namespace Src;
 
 use Src\IO\Reader;
+use Src\IO\Writer;
 
 class Main
 {
@@ -18,9 +19,7 @@ class Main
 
         $tracks = (new Conference($talks))->buildTracks();
 
-        print_r($tracks);
-
-        // (new Writer())->formatAndWrite($tracks);
+         (new Writer())->formatAndWrite($tracks);
 
         return true;
     }
