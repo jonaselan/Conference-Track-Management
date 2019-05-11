@@ -33,17 +33,14 @@ class Conference
      */
     public function buildTracks()
     {
-//        print_r($this->fillMorningTrack());
-//        print_r($this->talks);
-
-//        while($this->hasTalksRemaining())
-//        {
-            //$this->tracks[$this->track_count++][] =
-//            $this->setDailyTrack(
-//                $this->fillMorningTrack(),
-//                $this->fillAfternoonTrack()
-//            );
-//        }
+        while($this->hasTalksRemaining())
+        {
+            $this->tracks[++$this->track_count][] =
+            $this->setDailyTrack(
+                $this->fillMorningTrack(),
+                $this->fillAfternoonTrack()
+            );
+        }
 
         return $this->tracks;
     }
@@ -71,10 +68,11 @@ class Conference
     private function fillMorningTrack()
     {
         $morningTrack = [];
-        $counts = $this->setCounts();
+        $count_by_minutes = $this->getCountsByMinutes();
 
         // 60 + (2 × 45) + 30
-        if (($counts['45'] >= $counts['60']) && ($counts['45']) >= $counts['30'])
+        if (($count_by_minutes['45'] >= $count_by_minutes['60'])
+            && ($count_by_minutes['45']) >= $count_by_minutes['30'])
         {
             $morningTrack = [
                 $this->popTitle($this->talks[60]) => 60,
@@ -84,7 +82,8 @@ class Conference
             ];
         }
         // (2 × 60) + (2 × 30)
-        else if(($counts['45'] < $counts['60']) || ($counts['45'] < $counts['30']))
+        else if(($count_by_minutes['45'] < $count_by_minutes['60'])
+                || ($count_by_minutes['45'] < $count_by_minutes['30']))
         {
             $morningTrack = [
                 $this->popTitle($this->talks[60]) => 60,
@@ -104,31 +103,33 @@ class Conference
      */
     public function fillAfternoonTrack()
     {
-        $morningTrack = [];
-        $counts = $this->setCounts();
+        $afternoonTrack = [];
+        $afternoonMinutes = 0;
+        $count_by_minutes = $this->getCountsByMinutes();
 
-        // if has more 45 -> 60 + 2 × 45 + 30
-        if (($counts['45'] >= $counts['60']) && ($counts['45']) >= $counts['30'])
-        {
-            $morningTrack = [
-                $this->popTitle($this->talks[60]) => 60,
-                $this->popTitle($this->talks[45]) => 45,
-                $this->popTitle($this->talks[45]) => 45,
-                $this->popTitle($this->talks[30]) => 30,
-            ];
-        }
-        // 2 × 60 + 2 × 30
-        else if(($counts['45'] < $counts['60']) || ($counts['45'] < $counts['30']))
-        {
-            $morningTrack = [
-                $this->popTitle($this->talks[60]) => 60,
-                $this->popTitle($this->talks[30]) => 30,
-                $this->popTitle($this->talks[30]) => 30,
-                $this->popTitle($this->talks[60]) => 60,
-            ];
-        }
+        do {
+            // verificar qual o que tem mais (por grupo de minuto)
+            $max_qtd_minutes = array_search(max($count_by_minutes), $count_by_minutes);
 
-        return $morningTrack;
+            $afternoonMinutes += $max_qtd_minutes;
+
+            $afternoonTrack = array_merge(
+                $afternoonTrack,
+                [$this->popTitle($this->talks[$max_qtd_minutes]) => $max_qtd_minutes]);
+
+            $count_by_minutes[$max_qtd_minutes]--;
+        }
+        // verificar se ao adicionar esse valor o valor resultante é >= 180 e <= 240
+        while (!(($afternoonMinutes + $max_qtd_minutes) > 240));
+//        (!(($afternoonMinutes + $max_qtd_minutes) >= 180
+//            && ($afternoonMinutes + $max_qtd_minutes) <= 240))
+
+//        if ($count_by_minutes['5'] > 0)
+//        {
+//
+//        }
+
+        return $afternoonTrack;
     }
 
     private function setDailyTrack($morningTrack, $afternoonTrack)
@@ -144,12 +145,12 @@ class Conference
         return array_pop($array);
     }
 
-    private function setCounts()
+    private function getCountsByMinutes()
     {
         $counts = [];
-        foreach ($this->talks as $minutes => $talks_title)
+        foreach ($this->talks as $minutes => $talks)
         {
-            $counts[$minutes] = count($talks_title);
+            $counts[$minutes] = count($talks);
         }
 
         return $counts;

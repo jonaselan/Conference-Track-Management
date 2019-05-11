@@ -18,6 +18,8 @@ class Main
 
         $tracks = (new Conference($talks))->buildTracks();
 
+        print_r($tracks);
+
         // (new Writer())->formatAndWrite($tracks);
 
         return true;
