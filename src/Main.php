@@ -25,7 +25,7 @@ class Main
      */
     public function run()
     {
-        list($talks, $total_minutes) = (new Reader())->readAndFormat('/input.txt');
+        list($talks, $total_minutes) = (new Reader())->readAndFormat('input.txt');
 
         print_r([$talks, $total_minutes]);
 

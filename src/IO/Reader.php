@@ -31,7 +31,7 @@ class Reader
     public function readAndFormat($path): array
     {
         if($this->validator->validateFile($path)){
-            $fh = fopen($path, 'r');
+            $fh = fopen($path, 'r', true);
         }
 
         while ($line = fgets($fh)) {
