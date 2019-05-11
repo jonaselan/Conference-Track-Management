@@ -3,10 +3,14 @@
 namespace Src;
 
 use Src\IO\Reader;
-use Src\Helpers\Validator;
 
 class Main
 {
+    /**
+     * @var array
+     */
+    private $talks = [];
+
     /**
      * @var array
      */
@@ -25,30 +29,26 @@ class Main
      */
     public function run()
     {
-        list($talks, $total_minutes) = (new Reader())->readAndFormat('input.txt');
+        $this->talks = (new Reader())->readAndFormat('input.txt');
 
-        print_r([$talks, $total_minutes]);
+        while($this->hasTalksRemaining())
+        {
+            //$this->tracks[$this->track_count++][] =
+            $this->setDailyTrack(
+                $this->fillMorningTrack(),
+                $this->fillAfternoonTrack()
+            );
+        }
 
-        (new Validator())->validateMinutesLength($total_minutes);
-
-//        while($this->hasTalksRemaining($talks))
-//        {
-//            //$tracks =
-//            $this->setDailyTrack(
-//                $this->fillMorningTrack(),
-//                $this->fillAfternoonTrack()
-//            );
-//        }
-
-        // (new Writer())->formatAndWrite($tracks);
+        // (new Writer())->formatAndWrite($this->tracks);
 
         return true;
     }
 
-    public function hasTalksRemaining($talks)
+    public function hasTalksRemaining()
     {
         $has = false;
-        foreach ($talks as $minutes => $talks_title)
+        foreach ($this->talks as $minutes => $talks_title)
         {
             if (!empty($talks_title)) {
                 $has = true;
@@ -59,6 +59,9 @@ class Main
         return $has;
     }
 
+    /**
+     * Return values for fill morning track
+     */
     public function fillMorningTrack()
     {
         $morningTrak = [];

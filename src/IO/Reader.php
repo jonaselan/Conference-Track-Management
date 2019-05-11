@@ -12,11 +12,9 @@ class Reader
     private $total_minutes = 0;
 
     /**
-     * @var array
+     * @var Validator
      */
-    private $talks = [];
-
-    public $validator = [];
+    public $validator = null;
 
     public function __construct()
     {
@@ -32,6 +30,7 @@ class Reader
     {
         if($this->validator->validateFile($path)){
             $fh = fopen($path, 'r', true);
+            $talks = [];
         }
 
         while ($line = fgets($fh)) {
@@ -41,15 +40,14 @@ class Reader
 
             $this->validator->validateTitle($title);
 
-            $this->talks[$length][] = $title;
+            $talks[$length][] = $title;
         }
 
         fclose($fh);
 
-        return [
-            $this->talks,
-            $this->total_minutes
-        ];
+        $this->validator->validateMinutesLength($this->total_minutes);
+
+        return $talks;
     }
 
     /**
@@ -60,7 +58,7 @@ class Reader
      */
     private function formatEntry($description)
     {
-        // position of last occuring space in the string
+        // position of last occurring space in the string
         $pos = strrpos($description, ' ');
 
         // get the last word in the string
@@ -82,6 +80,7 @@ class Reader
     {
         $minutes = '5';
         if ($dirty_minutes != 'lightning') {
+            // get only number of minutes
             $minutes = strstr($dirty_minutes, 'min', true);
         }
 
