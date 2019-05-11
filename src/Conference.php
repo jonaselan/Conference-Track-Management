@@ -108,26 +108,27 @@ class Conference
         $count_by_minutes = $this->getCountsByMinutes();
 
         do {
-            // verificar qual o que tem mais (por grupo de minuto)
+            // verificar qual o que tem mais (por grupo de minuto) para manter o equilibrio
             $max_qtd_minutes = array_search(max($count_by_minutes), $count_by_minutes);
 
+            // keep tracking how much minutes was put on afternoon
             $afternoonMinutes += $max_qtd_minutes;
 
             $afternoonTrack = array_merge(
                 $afternoonTrack,
-                [$this->popTitle($this->talks[$max_qtd_minutes]) => $max_qtd_minutes]);
-
+                [ $this->popTitle($this->talks[$max_qtd_minutes]) => $max_qtd_minutes ]
+            );
             $count_by_minutes[$max_qtd_minutes]--;
         }
-        // verificar se ao adicionar esse valor o valor resultante é >= 180 e <= 240
         while (!(($afternoonMinutes + $max_qtd_minutes) > 240));
-//        (!(($afternoonMinutes + $max_qtd_minutes) >= 180
-//            && ($afternoonMinutes + $max_qtd_minutes) <= 240))
 
-//        if ($count_by_minutes['5'] > 0)
-//        {
-//
-//        }
+        if ($count_by_minutes['5'] > 0)
+        {
+            $afternoonTrack = array_merge(
+                $afternoonTrack,
+                [ $this->popTitle($this->talks['5']) => 5 ]
+            );
+        }
 
         return $afternoonTrack;
     }

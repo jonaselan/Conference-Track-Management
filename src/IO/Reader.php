@@ -47,6 +47,8 @@ class Reader
 
         $this->validator->validateMinutesLength($this->total_minutes);
 
+        arsort($talks);
+
         return $talks;
     }
 
