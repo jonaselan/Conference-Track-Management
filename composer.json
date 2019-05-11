@@ -13,9 +13,19 @@
             "email": "jonas.elan@gmail.com"
         }
     ],
+    "config": {
+        "optimize-autoloader": true,
+        "preferred-install": "dist",
+        "sort-packages": true
+    },
     "autoload": {
         "psr-4": {
             "Src\\": "src/"
         }
+    },
+    "autoload-dev": {
+      "psr-4": {
+        "Tests\\": "src/Tests/"
+      }
     }
 }

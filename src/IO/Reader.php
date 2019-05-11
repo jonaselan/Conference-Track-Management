@@ -2,7 +2,7 @@
 
 namespace Src\IO;
 
-use Helpers\Validator;
+use Src\Helpers\Validator;
 
 class Reader
 {
@@ -30,7 +30,7 @@ class Reader
      */
     public function readAndFormat($path): array
     {
-        if($this->validator->validateTitle($path)){
+        if($this->validator->validateFile($path)){
             $fh = fopen($path, 'r');
         }
 

@@ -3,6 +3,7 @@
 namespace Src;
 
 use Src\IO\Reader;
+use Src\Helpers\Validator;
 
 class Main
 {
@@ -24,7 +25,7 @@ class Main
      */
     public function run()
     {
-        list($talks, $total_minutes) = (new Reader())->readAndFormat('IO/input.txt');
+        list($talks, $total_minutes) = (new Reader())->readAndFormat('/input.txt');
 
         print_r([$talks, $total_minutes]);
 
@@ -82,10 +83,8 @@ class Main
 
 }
 
-try {
-    (new Main())->run();
-} catch (Exception $e) {
-    echo $e->getMessage();
-}
-
-?>
+//try {
+//    (new Main())->run();
+//} catch (\Exception $e) {
+//    echo $e->getMessage();
+//}
