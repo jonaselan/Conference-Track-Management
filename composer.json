@@ -1,9 +1,6 @@
 {
     "name": "jonaselan/problem-two",
     "description": "Conference Track Management",
-    "require": {
-        "phpunit/phpunit": "^8.1"
-    },
     "require-dev": {
         "phpunit/phpunit": "^8.1"
     },
@@ -22,10 +19,5 @@
         "psr-4": {
             "Src\\": "src/"
         }
-    },
-    "autoload-dev": {
-      "psr-4": {
-        "Tests\\": "src/Tests/"
-      }
     }
 }
