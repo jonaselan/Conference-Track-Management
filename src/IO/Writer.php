@@ -6,18 +6,26 @@ class Writer
 {
     public function formatAndWrite($tracks)
     {
-
-        // 10:00AM Overdoing it in Python 45min
         foreach ($tracks as $track => $talks)
         {
-            $conferenceDuration = date('h:i A', strtotime('09:00'));
+            $conferenceDuration = $this->startANewDay();
             echo "Track $track:\n\n";
 
             foreach ($talks as $talk => $length) {
                 echo $conferenceDuration ." $talk \n\n";
 
-                $conferenceDuration = date('h:i A', strtotime("+".$length." minutes", strtotime($conferenceDuration)));
+                $this->nextTalk($conferenceDuration, $length);
             }
         }
+    }
+
+    private function startANewDay()
+    {
+        return date('h:i A', strtotime('09:00'));
+    }
+
+    private function nextTalk(&$duration, $length)
+    {
+        $duration = date('h:i A', strtotime("+".$length." minutes", strtotime($duration)));
     }
 }

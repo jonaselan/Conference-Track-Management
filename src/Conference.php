@@ -68,28 +68,28 @@ class Conference
     private function fillMorningTrack()
     {
         $morningTrack = [];
-        $count_by_minutes = $this->getCountsByMinutes();
+        $countByMinutes = $this->getCountsByMinutes();
 
         // 60 + (2 × 45) + 30
-        if (($count_by_minutes['45'] >= $count_by_minutes['60'])
-            && ($count_by_minutes['45']) >= $count_by_minutes['30'])
+        if (($countByMinutes['45'] >= $countByMinutes['60'])
+            && ($countByMinutes['45']) >= $countByMinutes['30'])
         {
             $morningTrack = [
-                $this->popTitle($this->talks[60]) => 60,
-                $this->popTitle($this->talks[45]) => 45,
-                $this->popTitle($this->talks[45]) => 45,
-                $this->popTitle($this->talks[30]) => 30,
+                $this->popTalk($this->talks[60]) => 60,
+                $this->popTalk($this->talks[45]) => 45,
+                $this->popTalk($this->talks[45]) => 45,
+                $this->popTalk($this->talks[30]) => 30,
             ];
         }
         // (2 × 60) + (2 × 30)
-        else if(($count_by_minutes['45'] < $count_by_minutes['60'])
-                || ($count_by_minutes['45'] < $count_by_minutes['30']))
+        else if(($countByMinutes['45'] < $countByMinutes['60'])
+                || ($countByMinutes['45'] < $countByMinutes['30']))
         {
             $morningTrack = [
-                $this->popTitle($this->talks[60]) => 60,
-                $this->popTitle($this->talks[30]) => 30,
-                $this->popTitle($this->talks[30]) => 30,
-                $this->popTitle($this->talks[60]) => 60,
+                $this->popTalk($this->talks[60]) => 60,
+                $this->popTalk($this->talks[30]) => 30,
+                $this->popTalk($this->talks[30]) => 30,
+                $this->popTalk($this->talks[60]) => 60,
             ];
         }
 
@@ -105,28 +105,28 @@ class Conference
     {
         $afternoonTrack = [];
         $afternoonMinutes = 0;
-        $count_by_minutes = $this->getCountsByMinutes();
+        $countByMinutes = $this->getCountsByMinutes();
 
         do {
             // verificar qual o que tem mais (por grupo de minuto) para manter o equilibrio
-            $max_qtd_minutes = array_search(max($count_by_minutes), $count_by_minutes);
+            $maxQtdMinutes = array_search(max($countByMinutes), $countByMinutes);
 
             // keep tracking how much minutes was put on afternoon
-            $afternoonMinutes += $max_qtd_minutes;
+            $afternoonMinutes += $maxQtdMinutes;
 
             $afternoonTrack = array_merge(
                 $afternoonTrack,
-                [ $this->popTitle($this->talks[$max_qtd_minutes]) => $max_qtd_minutes ]
+                [ $this->popTalk($this->talks[$maxQtdMinutes]) => $maxQtdMinutes ]
             );
-            $count_by_minutes[$max_qtd_minutes]--;
+            $countByMinutes[$maxQtdMinutes]--;
         }
-        while (!(($afternoonMinutes + $max_qtd_minutes) > 240));
+        while (!(($afternoonMinutes + $maxQtdMinutes) > 240));
 
-        if ($count_by_minutes['5'] > 0)
+        if ($countByMinutes['5'] > 0)
         {
             $afternoonTrack = array_merge(
                 $afternoonTrack,
-                [ $this->popTitle($this->talks['5']) => 5 ]
+                [ $this->popTalk($this->talks['5']) => 5 ]
             );
         }
 
@@ -141,7 +141,7 @@ class Conference
         return array_merge($morning, $afternoon);
     }
 
-    private function popTitle(&$array)
+    private function popTalk(&$array)
     {
         return array_pop($array);
     }

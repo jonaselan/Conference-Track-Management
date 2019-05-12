@@ -9,7 +9,7 @@ class Reader
     /**
      * @var int
      */
-    private $total_minutes = 0;
+    private $totalMinutes = 0;
 
     /**
      * @var Validator
@@ -45,7 +45,7 @@ class Reader
 
         fclose($fh);
 
-        $this->validator->validateMinutesLength($this->total_minutes);
+        $this->validator->validateMinutesLength($this->totalMinutes);
 
         arsort($talks);
 
@@ -75,18 +75,18 @@ class Reader
     /**
      * Format dirty minutes
      *
-     * @param $dirty_minutes
+     * @param $dirtyMinutes
      * @return string
      */
-    private function formatMinutes($dirty_minutes)
+    private function formatMinutes($dirtyMinutes)
     {
         $minutes = '5';
-        if ($dirty_minutes != 'lightning') {
+        if ($dirtyMinutes != 'lightning') {
             // get only number of minutes
-            $minutes = strstr($dirty_minutes, 'min', true);
+            $minutes = strstr($dirtyMinutes, 'min', true);
         }
 
-        $this->total_minutes += $minutes;
+        $this->totalMinutes += $minutes;
 
         return $minutes;
     }
