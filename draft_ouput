@@ -1,0 +1,92 @@
+
+
+
+(
+    [60] => Array
+        (
+            [0] => Writing Fast Tests Against Enterprise Rails
+            [1] => Communicating Over Distance
+            [2] => Rails Magic
+            [3] => Ruby on Rails: Why We Should Move On
+            [4] => Ruby on Rails Legacy App Maintenance
+        )
+
+    [45] => Array
+        (
+            [0] => Overdoing it in Python
+            [1] => Ruby Errors from Mismatched Gem Versions
+            [2] => Common Ruby Errors
+            [3] => Accounting-Driven Development
+            [4] => Pair Programming vs Noise
+            [5] => Clojure Ate Scala (on my project)
+        )
+
+    [30] => Array
+        (
+            [0] => Lua for the Masses
+            [1] => Woah
+            [2] => Sit Down and Write
+            [3] => Programming in the Boondocks of Seattle
+            [4] => Ruby vs. Clojure for Back-End Development
+            [5] => A World Without HackerNews
+            [6] => User Interface CSS in Rails Apps
+        )
+
+    [5] => Array
+        (
+            [0] => Rails for Python Developers
+        )
+
+)
+
+Array
+(
+    [60] => 5
+    [45] => 6
+    [30] => 7
+    [5] => 1
+)
+
+
+(
+    [1] => Array
+        (
+            [0] => Array
+                (
+                    [Ruby on Rails Legacy App Maintenance] => 60
+                    [User Interface CSS in Rails Apps] => 30
+                    [A World Without HackerNews] => 30
+                    [Ruby on Rails: Why We Should Move On] => 60
+                    [Lunch] => 0
+                    [Clojure Ate Scala (on my project)] => 45
+                    [Ruby vs. Clojure for Back-End Development] => 30
+                    [Pair Programming vs Noise] => 45
+                    [Programming in the Boondocks of Seattle] => 30
+                    [Accounting-Driven Development] => 45
+                    [Sit Down and Write] => 30
+                    [Rails for Python Developers] => 5
+                    [Networking Event] => 0
+                )
+
+        )
+
+    [2] => Array
+        (
+            [0] => Array
+                (
+                    [Rails Magic] => 60
+                    [Common Ruby Errors] => 45
+                    [Ruby Errors from Mismatched Gem Versions] => 45
+                    [Woah] => 30
+                    [Lunch] => 0
+                    [Communicating Over Distance] => 60
+                    [Lua for the Masses] => 30
+                    [Overdoing it in Python] => 45
+                    [Writing Fast Tests Against Enterprise Rails] => 60
+                    [Networking Event] => 0
+                )
+
+        )
+
+)
+
