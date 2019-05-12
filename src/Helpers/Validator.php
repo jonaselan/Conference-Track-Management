@@ -13,7 +13,7 @@ class Validator
     public function __construct()
     {
         $this->msg = include 'messages.php';
-        $this->msg = $this->msg[$GLOBALS['lang']];
+        $this->msg = $this->msg['en'];
     }
 
     /**
