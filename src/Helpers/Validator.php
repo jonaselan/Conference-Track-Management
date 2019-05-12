@@ -58,10 +58,9 @@ class Validator
     public function validateFile($path)
     {
         if (file_exists($path) && is_readable($path))
-            throw new Exception('Invalid input: The file you are trying to open don\'t exist or can\'t be read');
+            return true;
 
-        return true;
+        throw new Exception($this->msg['input_non_exist']);
     }
-
 
 }

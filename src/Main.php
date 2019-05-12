@@ -15,7 +15,7 @@ class Main
      */
     public function run()
     {
-        $talks = (new Reader())->readAndFormat('input.txt');
+        $talks = (new Reader())->readAndFormat('./src/IO/input.txt');
 
         $tracks = (new Conference($talks))->buildTracks();
 

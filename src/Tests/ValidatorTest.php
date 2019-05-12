@@ -37,10 +37,4 @@ class ValidatorTest extends TestCase
         $this->validator->validateMinutesLength(100);
 
     }
-
-    /** @test */
-    public function throw_a_error_when_dont_exit_input_file()
-    {
-        $this->assertTrue(true);
-    }
 }
