@@ -11,10 +11,10 @@ class Writer
             $conferenceDuration = $this->startANewDay();
             echo "Track $track:\n\n";
 
-            foreach ($talks as $talk => $length) {
+            foreach ($talks as $talk => $talk_length) {
                 echo $conferenceDuration ." $talk \n\n";
 
-                $this->nextTalk($conferenceDuration, $length);
+                $this->nextTalk($conferenceDuration, $talk_length);
             }
         }
     }

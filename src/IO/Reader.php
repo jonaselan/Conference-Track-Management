@@ -58,7 +58,7 @@ class Reader
      * @param $description
      * @return array
      */
-    private function formatEntry($description)
+    public function formatEntry($description)
     {
         // position of last occurring space in the string
         $pos = strrpos($description, ' ');
@@ -78,7 +78,7 @@ class Reader
      * @param $dirtyMinutes
      * @return string
      */
-    private function formatMinutes($dirtyMinutes)
+    public function formatMinutes($dirtyMinutes)
     {
         $minutes = '5';
         if ($dirtyMinutes != 'lightning') {

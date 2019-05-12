@@ -10,16 +10,6 @@ class Conference
     private $talks = [];
 
     /**
-     * @var array
-     */
-    public $tracks = [];
-
-    /**
-     * @var int
-     */
-    public $track_count = 0;
-
-    /**
      * Conference constructor.
      * @param $talks
      */
@@ -33,24 +23,27 @@ class Conference
      */
     public function buildTracks()
     {
+        $trackCount = 0;
+        $tracks = [];
+
         while($this->hasTalksRemaining())
         {
-            $this->tracks[++$this->track_count] =
+            $tracks[++$trackCount] =
             $this->setDailyTrack(
                 $this->fillMorningTrack(),
                 $this->fillAfternoonTrack()
             );
         }
 
-        return $this->tracks;
+        return $tracks;
     }
 
-    private function hasTalksRemaining()
+    public function hasTalksRemaining()
     {
         $has = false;
         foreach ($this->talks as $minutes => $talks)
         {
-            // if has unless one taks, continue
+            // if has unless one talk, continue
             if (!empty($talks)) {
                 $has = true;
                 break;
@@ -58,6 +51,17 @@ class Conference
         }
 
         return $has;
+    }
+
+    public function getCountsByMinutes()
+    {
+        $counts = [];
+        foreach ($this->talks as $minutes => $talks)
+        {
+            $counts[$minutes] = count($talks);
+        }
+
+        return $counts;
     }
 
     /**
@@ -83,7 +87,7 @@ class Conference
         }
         // (2 × 60) + (2 × 30)
         else if(($countByMinutes['45'] < $countByMinutes['60'])
-                || ($countByMinutes['45'] < $countByMinutes['30']))
+            || ($countByMinutes['45'] < $countByMinutes['30']))
         {
             $morningTrack = [
                 $this->popTalk($this->talks[60]) => 60,
@@ -101,14 +105,14 @@ class Conference
      *
      * @return array
      */
-    public function fillAfternoonTrack()
+    private function fillAfternoonTrack()
     {
         $afternoonTrack = [];
         $afternoonMinutes = 0;
         $countByMinutes = $this->getCountsByMinutes();
 
         do {
-            // verificar qual o que tem mais (por grupo de minuto) para manter o equilibrio
+            // check which has the most occurrences per time
             $maxQtdMinutes = array_search(max($countByMinutes), $countByMinutes);
 
             // keep tracking how much minutes was put on afternoon
@@ -120,8 +124,9 @@ class Conference
             );
             $countByMinutes[$maxQtdMinutes]--;
         }
-        while (!(($afternoonMinutes + $maxQtdMinutes) > 240));
+        while (!(($afternoonMinutes + $maxQtdMinutes) > 240)); // > 5pm
 
+        // handle lightning talks
         if ($countByMinutes['5'] > 0)
         {
             $afternoonTrack = array_merge(
@@ -144,17 +149,6 @@ class Conference
     private function popTalk(&$array)
     {
         return array_pop($array);
-    }
-
-    private function getCountsByMinutes()
-    {
-        $counts = [];
-        foreach ($this->talks as $minutes => $talks)
-        {
-            $counts[$minutes] = count($talks);
-        }
-
-        return $counts;
     }
 
 }
