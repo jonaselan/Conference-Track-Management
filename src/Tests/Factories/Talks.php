@@ -44,9 +44,4 @@ class Talks
         ];
     }
 
-    public function withLightningTalk()
-    {
-        return [];
-    }
-
 }

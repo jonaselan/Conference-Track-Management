@@ -19,7 +19,7 @@ class Main
 
         $tracks = (new Conference($talks))->buildTracks();
 
-         (new Writer())->formatAndWrite($tracks);
+        (new Writer())->formatAndWrite($tracks);
 
         return true;
     }

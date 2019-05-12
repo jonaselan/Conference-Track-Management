@@ -8,6 +8,14 @@ class Validator
 {
     const MIN_MINUTES_PER_DAY = 180;
 
+    private $msg;
+
+    public function __construct()
+    {
+        $this->msg = include 'messages.php';
+        $this->msg = $this->msg[$GLOBALS['lang']];
+    }
+
     /**
      * Validate entries
      *
@@ -19,7 +27,7 @@ class Validator
     public function validateTitle($title)
     {
         if (preg_match('/\d/', $title))
-            throw new Exception('Invalid input: talk title can not have numbers');
+            throw new Exception($this->msg['title_has_integer']);
 
         return true;
     }
@@ -34,7 +42,7 @@ class Validator
     public function validateMinutesLength($minutes)
     {
         if ($minutes < self::MIN_MINUTES_PER_DAY)
-            throw new Exception('Invalid input: A minimum amount of hours was not entered to fill a track');
+            throw new Exception($this->msg['invalid_time_length']);
 
         return true;
     }
